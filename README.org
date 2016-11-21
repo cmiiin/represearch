@@ -1,0 +1,181 @@
+#+Title: Reproducible Research
+#+Author: Simin Yazdandoust
+#+Email: cminyazdan95@gmail.com
+
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:nil reveal_control:t
+#+OPTIONS: reveal_mathjax:t
+#+REVEAL_MATHJAX_URL: MathJax/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+#+OPTIONS: reveal_width:1200 reveal_height:800
+#+OPTIONS: email:t num:nil toc:nil timestamp:nil
+#+REVEAL_MARGIN: 0.1
+#+REVEAL_MIN_SCALE: 0.5
+#+REVEAL_MAX_SCALE: 2.5
+#+REVEAL_TRANS: concave
+#+REVEAL_THEME: serif
+#+REVEAL_HLEVEL: 1
+#+REVEAL_EXTRA_CSS: ./css/stylesheet.css
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="An Introduction to Reproducible Research">
+
+* Why Reproducible Research?
+  
+** Why here?!
+   - A lot of computational results in the /computer science research/
+   - A noticeable amount of graduate research endeavor is wasted reproducing other people's results
+
+** Why Reproducible Research at all?!
+   Claerbout Principle
+   #+BEGIN_QUOTE
+   An article about computational result is advertising, not scholarship. The actual
+   scholarship is the full software environment, code and data, that reproduce the result.
+   #+END_QUOTE
+   
+***  [[http://en.wikipedia.org/wiki/Growth_in_a_Time_of_Debt]["Growth in a Time of Debt"]]
+    - Carmen Reinhart and Kenneth Rogoff in 2010
+    - Computations done in *Excel*!
+    - Published in "The American Economic Review"
+      #+REVEAL: split
+    Made great economical influence...
+
+    Was totally *wrong*!
+
+*** Consequences
+     As a consequence, people started asking whether it is appropriate
+ to cite scientific research in politics and economical decisions.
+
+*** The American Psychology Association
+    Two related studies in 2006 and 2015 asked the authors of /APA/ for data. The following
+    table summarizes their response.
+    | Year | Data Response | Number of Contacted Authors |
+    |------+---------------+-----------------------------|
+    | 2006 |           27% |                         141 |
+    | 2015 |           38% |                         394 |
+    #+REVEAL: split
+    In another 2015 study, 270 researchers collaborated
+    trying to reproduce the results published in the top psychology journals.
+
+    Less than half were reproducible.
+*** Cancer Research
+    - Amgen team, 2012, tried to reproduce important results of pre-clinical targets of cancer
+    - 47 out of 53 (88.6%) were "irreproducible"
+    - [[http://www.nature.com/nature/journal/v483/n7391/full/483531a.html]]
+      
+* What is the solution?!
+  Computational research, including statistical studies need to 
+  be reproducible from source.
+  
+** Definition
+   *Reproducible research* is the idea that scientific claims are published with:
+   1. their data
+   2. software code used to analyze them
+      
+* The Platform
+  The platform needs to perform 3 tasks:
+  - document computation workflow
+  - integrate text, math, and code
+  - produce or modify a figure
+** Available tools
+   - Knitr (R)
+   - +IPython+ (Python, Julia, Haskell, Ruby)
+   - *Jupyter* (multi-language)
+   - *org-mode* (multi-language)
+** Jupyter
+   Jupyter is an "Web-based Publishing" platform.
+   
+   #+CAPTION: Jupyter Screenshot
+   #+NAME:   fig:IPython Screenshot
+   #+ATTR_HTML: :width 50%
+   [[./images/jupyter.png]]
+*** [Demo]
+** org-mode
+   org-mode is an Emacs plugin, for todo management, and easy publishing.
+   
+   Org supports all the 3 features mentioned above for a long list of languages, capable of exporting to ${  \LaTeX  }$
+   and use of all ${ \LaTeX }$ commands and packages.
+   
+   Plus, org has features for moving data between different programming languages, in addition to it's native tables.
+** Source code example
+   $$ \int _0^1 e^{e^x} dx $$
+   #+BEGIN_SRC python :results output :exports both :cache yes
+     from random import random
+     import math
+
+     def approx(total):
+         succ = 0
+         for i in range(total):
+             x, y = random(), random() * 27
+             if y < math.exp(math.exp(x)):
+                 succ += 1
+         return (succ/total) * 27
+
+     print(approx(10000000))
+   #+END_SRC
+
+   #+RESULTS[c2f35a05ba2c844be07ceb36e3e496524dca887c]:
+   : 6.3152919
+
+** PDF/${\LaTeX}$ Output
+   #+CAPTION: org-mode \(\LaTeX\) code and math output
+   #+NAME:   fig:org-mode PDF output
+   #+ATTR_HTML: :width 50%
+   [[./images/code_math.png]]
+
+** PDF/${\LaTeX}$ Output
+   #+CAPTION: org-mode \(\LaTeX\) table output
+   #+NAME:   fig:org-mode PDF output
+   #+ATTR_HTML: :width 50%
+   [[./images/table.png]]
+
+* Best Practice
+** Automate data manipulation from source
+** Don't modify figures/diagrams manually
+** Always use a pre-determined /seed/ for random number generators
+
+* More?
+  - [[https://www.coursera.org/learn/reproducible-research][Reproducible Research]] course on Coursera
+  - [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][Writing Scientific Papers in Org-Mode]]
+  - [[http://jupyter.org/community.html][Jupyter's Community Resources]]
+  - [[https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks][A gallery of interesting IPython/Jupyter Notebooks]] (from short blog posts to complete books)
+* Thanks!
+  #+BEGIN_SRC sh :exports none :results file
+    qrencode -s 9 -o ./images/cmin.png 'cminyazdan95@gmail.com
+    telegram.me/cmiiin'
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:]]
+
+   #+NAME:   fig:Blog QR
+   #+ATTR_HTML: :width 50%
+   [[./images/cmin.png]]
+
+* Configuration                                                    :noexport:
+# Local Variables:
+# org-latex-to-pdf-process: (xelatex -shell-escape -interaction nonstopmode -output-directory %o %f "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+# org-startup-with-inline-images: nil
+# End:
+
+#+BEGIN_SRC elisp :exports none
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((octave . t)))
+  (setq org-latex-pdf-process
+        (quote ("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                "biber %b"
+                "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
+  (add-to-list 'org-latex-packages-alist '("" "minted" nil))
+  (setq org-latex-listings 'minted)
+
+  (setq org-latex-minted-options
+        '(("frame" "leftline")
+          ("fontsize" "\\scriptsize")
+          ("stepnumber" "1")
+          ("mathescape" "true")
+          ("linenos" "true")))
+#+END_SRC
+
+#+RESULTS:
+| frame      | leftline    |
+| fontsize   | \scriptsize |
+| stepnumber | 1           |
+| mathescape | true        |
+| linenos    | true        |
