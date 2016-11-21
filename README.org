@@ -137,13 +137,15 @@
   - [[https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks][A gallery of interesting IPython/Jupyter Notebooks]] (from short blog posts to complete books)
 * Thanks!
   #+BEGIN_SRC sh :exports none :results file
-    qrencode -s 9 -o ./images/cmin.png 'cminyazdan95@gmail.com
+    qrencode -s 9 -o ./images/cmin.png 'https://github.com/cmiiin/represearch
+    cminyazdan95@gmail.com
     telegram.me/cmiiin'
   #+END_SRC
 
   #+RESULTS:
   [[file:]]
 
+  [[https://github.com/cmiiin/represearch]]
    #+NAME:   fig:Blog QR
    #+ATTR_HTML: :width 50%
    [[./images/cmin.png]]
